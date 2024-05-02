@@ -1,4 +1,4 @@
-# import random
+import random
 # import numpy as np
 # import plotly.graph_objs as go
 # from plotly.offline import plot
@@ -7,6 +7,8 @@
 ### CONSTANTS
 ### WINNING_BALANCE = 250	# in the original game, >=$250 is a winner
 INITIAL_PRICE = 100
+YEARS = 10
+VARIABILITY = 15
 
 ### if random.random() < probability_of_heads:
 
@@ -71,5 +73,16 @@ def simulate_many_games(games, strat_selector):
 
 
 # plot a share price for some number of years
+# dictionary with ticker (string) as key, and array[year]=price as value
 price = {}
-price["IBM"] = INITIAL_PRICE
+foo = []
+foo.append(0); foo[0] = INITIAL_PRICE
+# diddle with the data
+for i in range(1, YEARS):
+  var = ((random.random()-0.5)*2*VARIABILITY)/100
+  foo.append(i)
+  foo[i] = foo[i-1]*(1+var)
+  # print("year ", i, " var ", var)
+  print("year ", i, " price ", foo[i])
+
+price["IBM"] = foo
